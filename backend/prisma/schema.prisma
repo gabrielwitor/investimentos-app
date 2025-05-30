@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Cliente {
+  id        String   @id @default(cuid())
+  nome      String
+  email     String   @unique
+  status    Status   @default(ATIVO)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relacionamento com alocações de ativos
+  alocacoes AlocacaoAtivo[]
+
+  @@map("clientes")
+}
+
+model Ativo {
+  id        String   @id @default(cuid())
+  nome      String
+  valor     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relacionamento com alocações
+  alocacoes AlocacaoAtivo[]
+
+  @@map("ativos")
+}
+
+model AlocacaoAtivo {
+  id        String   @id @default(cuid())
+  clienteId String
+  ativoId   String
+  valor     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relacionamentos
+  cliente Cliente @relation(fields: [clienteId], references: [id], onDelete: Cascade)
+  ativo   Ativo   @relation(fields: [ativoId], references: [id], onDelete: Cascade)
+
+  @@unique([clienteId, ativoId])
+  @@map("alocacoes_ativos")
+}
+
+enum Status {
+  ATIVO
+  INATIVO
+}
