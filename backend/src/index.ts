@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import { clienteRoutes } from './routes/cliente.routes';
 import { ativoRoutes } from './routes/ativo.routes';
 import { alocacaoRoutes } from './routes/alocacao.routes';
+import { dashboardRoutes } from './routes/dashboard.routes';
 
 // Carrega variáveis de ambiente
 dotenv.config();
@@ -47,7 +48,8 @@ fastify.get('/', async (request, reply) => {
       health: '/health',
       clientes: '/api/clientes',
       ativos: '/api/ativos',
-      alocacoes: '/api/alocacoes'
+      alocacoes: '/api/alocacoes',
+      dashboard: '/api/dashboard'
     }
   };
 });
@@ -56,6 +58,7 @@ fastify.get('/', async (request, reply) => {
 fastify.register(clienteRoutes, { prefix: '/api' });
 fastify.register(ativoRoutes, { prefix: '/api' });
 fastify.register(alocacaoRoutes, { prefix: '/api' });
+fastify.register(dashboardRoutes, { prefix: '/api/dashboard' });
 
 // Função para iniciar o servidor
 const start = async () => {
