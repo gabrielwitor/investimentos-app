@@ -45,8 +45,8 @@ export class ClienteService {
 
     if (search) {
       where.OR = [
-        { nome: { contains: search, mode: 'insensitive' } },
-        { email: { contains: search, mode: 'insensitive' } }
+        { nome: { contains: search } },
+        { email: { contains: search } }
       ];
     }
 
