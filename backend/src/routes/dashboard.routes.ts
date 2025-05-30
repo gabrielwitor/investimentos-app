@@ -8,18 +8,18 @@ export async function dashboardRoutes(fastify: FastifyInstance) {
   fastify.get('/stats', {
     schema: {
       summary: 'Buscar estatísticas da dashboard',
-      description: 'Retorna estatísticas gerais do sistema para exibir na dashboard',
-      response: {
-        200: {
-          type: 'object',
-          properties: {
-            totalClientes: { type: 'number' },
-            ativosDisponiveis: { type: 'number' },
-            patrimonioTotal: { type: 'number' },
-            alocacoesAtivas: { type: 'number' }
+      description: 'Retorna estatísticas gerais do sistema para exibir na dashboard',        response: {
+          200: {
+            type: 'object',
+            properties: {
+              totalClientes: { type: 'number' },
+              clientesAtivos: { type: 'number' },
+              ativosDisponiveis: { type: 'number' },
+              patrimonioTotal: { type: 'number' },
+              alocacoesAtivas: { type: 'number' }
+            }
           }
         }
-      }
     }
   }, async (request, reply) => {
     try {
