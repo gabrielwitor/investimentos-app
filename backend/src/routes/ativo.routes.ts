@@ -42,7 +42,9 @@ export async function ativoRoutes(fastify: FastifyInstance) {
                 properties: {
                   id: { type: 'string' },
                   nome: { type: 'string' },
-                  valor: { type: 'number' },
+                  codigo: { type: 'string' },
+                  tipo: { type: 'string' },
+                  descricao: { type: 'string' },
                   createdAt: { type: 'string' },
                   updatedAt: { type: 'string' }
                 }
@@ -94,7 +96,9 @@ export async function ativoRoutes(fastify: FastifyInstance) {
           properties: {
             id: { type: 'string' },
             nome: { type: 'string' },
-            valor: { type: 'number' },
+            codigo: { type: 'string' },
+            tipo: { type: 'string' },
+            descricao: { type: 'string' },
             createdAt: { type: 'string' },
             updatedAt: { type: 'string' },
             alocacoes: {

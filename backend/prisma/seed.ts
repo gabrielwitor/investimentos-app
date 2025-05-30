@@ -7,16 +7,16 @@ async function seed() {
 
   // Criando ativos financeiros fixos
   const ativos = [
-    { nome: 'Ação VALE3', valor: 85.50 },
-    { nome: 'Ação PETR4', valor: 32.75 },
-    { nome: 'Ação ITUB4', valor: 28.90 },
-    { nome: 'Ação BBDC4', valor: 15.45 },
-    { nome: 'Fundo ABC', valor: 150.25 },
-    { nome: 'Fundo XYZ', valor: 95.80 },
-    { nome: 'CDB Premium', valor: 1000.00 },
-    { nome: 'LCI Banco Inter', valor: 500.00 },
-    { nome: 'Tesouro IPCA+', valor: 2547.33 },
-    { nome: 'Tesouro Selic', valor: 10234.56 }
+    { nome: 'Vale S.A.', codigo: 'VALE3', tipo: 'Ação', descricao: 'Mineração e siderurgia' },
+    { nome: 'Petrobras', codigo: 'PETR4', tipo: 'Ação', descricao: 'Petróleo e gás natural' },
+    { nome: 'Itaú Unibanco', codigo: 'ITUB4', tipo: 'Ação', descricao: 'Serviços financeiros' },
+    { nome: 'Bradesco', codigo: 'BBDC4', tipo: 'Ação', descricao: 'Banco múltiplo' },
+    { nome: 'Fundo ABC Multimercado', codigo: 'ABC001', tipo: 'Fundo', descricao: 'Fundo multimercado com estratégia diversificada' },
+    { nome: 'Fundo XYZ Renda Fixa', codigo: 'XYZ002', tipo: 'Fundo', descricao: 'Fundo de renda fixa conservador' },
+    { nome: 'CDB Banco Premium', codigo: 'CDB001', tipo: 'CDB', descricao: 'Certificado de Depósito Bancário prefixado' },
+    { nome: 'LCI Banco Inter', codigo: 'LCI001', tipo: 'LCI', descricao: 'Letra de Crédito Imobiliário isenta de IR' },
+    { nome: 'Tesouro IPCA+ 2029', codigo: 'IPCA29', tipo: 'Tesouro', descricao: 'Título público indexado à inflação' },
+    { nome: 'Tesouro Selic 2026', codigo: 'SELIC26', tipo: 'Tesouro', descricao: 'Título público pós-fixado Selic' }
   ];
 
   console.log('📊 Criando ativos financeiros...');
@@ -24,14 +24,18 @@ async function seed() {
   for (const ativo of ativos) {
     // Verifica se o ativo já existe
     const ativoExistente = await prisma.ativo.findFirst({
-      where: { nome: ativo.nome }
+      where: { codigo: ativo.codigo }
     });
 
     if (ativoExistente) {
-      // Atualiza o valor se já existe
+      // Atualiza o ativo se já existe
       await prisma.ativo.update({
         where: { id: ativoExistente.id },
-        data: { valor: ativo.valor }
+        data: { 
+          nome: ativo.nome,
+          tipo: ativo.tipo,
+          descricao: ativo.descricao
+        }
       });
     } else {
       // Cria novo ativo se não existe

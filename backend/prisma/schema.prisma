@@ -27,7 +27,9 @@ model Cliente {
 model Ativo {
   id        String   @id @default(cuid())
   nome      String
-  valor     Float
+  codigo    String   @unique
+  tipo      String
+  descricao String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   
