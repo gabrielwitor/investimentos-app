@@ -2,6 +2,8 @@ import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import { PrismaClient } from '@prisma/client';
 import dotenv from 'dotenv';
+import { clienteRoutes } from './routes/cliente.routes';
+import { ativoRoutes } from './routes/ativo.routes';
 
 // Carrega variáveis de ambiente
 dotenv.config();
@@ -47,6 +49,10 @@ fastify.get('/', async (request, reply) => {
     }
   };
 });
+
+// Registrar rotas
+fastify.register(clienteRoutes, { prefix: '/api' });
+fastify.register(ativoRoutes, { prefix: '/api' });
 
 // Função para iniciar o servidor
 const start = async () => {
