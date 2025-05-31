@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation'
 import { AppLayout } from '@/components/layout'
 import { useAtivo } from '@/hooks/use-ativos'
-import { ArrowLeft, TrendingUp, User, DollarSign, Calendar } from 'lucide-react'
+import { ArrowLeft, TrendingUp, User, DollarSign, Calendar, Building2, Sparkles, Activity, BarChart3 } from 'lucide-react'
 import Link from 'next/link'
 import { formatDate, formatCurrency } from '@/lib/utils'
 
@@ -14,22 +14,24 @@ export default function AtivoDetailPage() {
   const { data: ativo, isLoading, error } = useAtivo(id)
 
   const getTipoColor = (tipo: string) => {
-    const colors: Record<string, string> = {
-      'Acao': 'bg-blue-100 text-blue-800',
-      'FII': 'bg-green-100 text-green-800',
-      'Cripto': 'bg-purple-100 text-purple-800',
-      'ETF': 'bg-yellow-100 text-yellow-800',
-      'Renda Fixa': 'bg-gray-100 text-gray-800',
+    const colors: Record<string, { bg: string; text: string; border: string; icon: string }> = {
+      'Acao': { bg: 'bg-gradient-to-br from-blue-500 to-blue-600', text: 'text-white', border: 'border-blue-200', icon: 'TrendingUp' },
+      'FII': { bg: 'bg-gradient-to-br from-emerald-500 to-emerald-600', text: 'text-white', border: 'border-emerald-200', icon: 'Building2' },
+      'Cripto': { bg: 'bg-gradient-to-br from-purple-500 to-purple-600', text: 'text-white', border: 'border-purple-200', icon: 'BarChart3' },
+      'ETF': { bg: 'bg-gradient-to-br from-amber-500 to-amber-600', text: 'text-white', border: 'border-amber-200', icon: 'Sparkles' },
+      'Renda Fixa': { bg: 'bg-gradient-to-br from-gray-500 to-gray-600', text: 'text-white', border: 'border-gray-200', icon: 'DollarSign' },
     }
-    return colors[tipo] || 'bg-gray-100 text-gray-800'
+    return colors[tipo] || colors['Renda Fixa']
   }
 
   if (error) {
     return (
       <AppLayout>
         <div className="text-center py-12">
-          <div className="text-red-600">
-            Erro ao carregar ativo: {error.message}
+          <div className="bg-red-50 border border-red-200 rounded-2xl p-8 max-w-md mx-auto">
+            <TrendingUp className="h-12 w-12 text-red-500 mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-red-900 mb-2">Erro ao carregar ativo</h3>
+            <p className="text-red-700">{error.message}</p>
           </div>
         </div>
       </AppLayout>
@@ -39,9 +41,9 @@ export default function AtivoDetailPage() {
   if (isLoading) {
     return (
       <AppLayout>
-        <div className="p-6 text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-2 text-sm text-gray-600">Carregando detalhes do ativo...</p>
+        <div className="p-12 text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-lg text-gray-600">Carregando detalhes do ativo...</p>
         </div>
       </AppLayout>
     )
@@ -51,120 +53,173 @@ export default function AtivoDetailPage() {
     return (
       <AppLayout>
         <div className="text-center py-12">
-          <div className="text-gray-600">Ativo não encontrado</div>
+          <div className="bg-gray-50 border border-gray-200 rounded-2xl p-8 max-w-md mx-auto">
+            <Building2 className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Ativo não encontrado</h3>
+            <p className="text-gray-600">O ativo solicitado não existe ou foi removido.</p>
+          </div>
         </div>
       </AppLayout>
     )
   }
 
+  const tipoStyle = getTipoColor(ativo.tipo)
+
   return (
     <AppLayout>
       <div className="space-y-6">
-        {/* Header */}
-        <div className="flex items-center space-x-4">
-          <Link
-            href="/ativos"
-            className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-md transition-colors"
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </Link>
-          <div className="flex-1">
-            <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-              <TrendingUp className="h-8 w-8 mr-3 text-blue-600" />
-              {ativo.nome}
-            </h1>
-            <p className="mt-2 text-sm text-gray-600">
-              Detalhes do ativo financeiro
-            </p>
+        {/* Header with modern gradient */}
+        <div className={`${tipoStyle.bg} rounded-2xl shadow-xl overflow-hidden`}>
+          <div className="px-8 py-12 text-white">
+            <div className="flex items-center space-x-6">
+              <Link
+                href="/ativos"
+                className="p-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-200 backdrop-blur-sm"
+              >
+                <ArrowLeft className="h-6 w-6" />
+              </Link>
+              
+              <div className="flex items-center space-x-4">
+                <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4">
+                  <Building2 className="h-12 w-12" />
+                </div>
+                <div>
+                  <h1 className="text-4xl font-bold mb-2">{ativo.nome}</h1>
+                  <p className="text-xl text-white/80 mb-4">Detalhes do ativo financeiro</p>
+                  <div className="flex items-center space-x-6">
+                    <div className="flex items-center">
+                      <Activity className="h-5 w-5 mr-2 text-white/70" />
+                      <span className="text-white/80">Código: {ativo.codigo}</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Sparkles className="h-5 w-5 mr-2 text-white/70" />
+                      <span className="text-white/80">Tipo: {ativo.tipo}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Informações principais */}
-        <div className="bg-white shadow rounded-lg p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Informações Básicas</h3>
-              <dl className="space-y-3">
-                <div>
-                  <dt className="text-sm font-medium text-gray-500">Nome</dt>
-                  <dd className="text-sm text-gray-900">{ativo.nome}</dd>
+        <div className="bg-white shadow-xl rounded-2xl border border-gray-100 overflow-hidden">
+          <div className="p-8">
+            <div className="flex items-center mb-6">
+              <div className="bg-blue-50 rounded-lg p-2 mr-3">
+                <Building2 className="h-5 w-5 text-blue-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900">Informações do Ativo</h3>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+              <div className="space-y-6">
+                <div className="p-4 bg-gray-50 rounded-xl">
+                  <dt className="text-sm font-medium text-gray-500 mb-2">Nome do Ativo</dt>
+                  <dd className="text-lg font-semibold text-gray-900">{ativo.nome}</dd>
                 </div>
-                <div>
-                  <dt className="text-sm font-medium text-gray-500">Código</dt>
-                  <dd className="text-sm font-mono text-gray-900">{ativo.codigo}</dd>
+                
+                <div className="p-4 bg-gray-50 rounded-xl">
+                  <dt className="text-sm font-medium text-gray-500 mb-2">Código</dt>
+                  <dd className="text-lg font-mono font-semibold text-gray-900">{ativo.codigo}</dd>
                 </div>
-                <div>
-                  <dt className="text-sm font-medium text-gray-500">Tipo</dt>
+                
+                <div className="p-4 bg-gray-50 rounded-xl">
+                  <dt className="text-sm font-medium text-gray-500 mb-2">Tipo de Ativo</dt>
                   <dd>
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getTipoColor(ativo.tipo)}`}>
+                    <span className={`inline-flex items-center px-4 py-2 rounded-xl text-sm font-semibold ${tipoStyle.bg} ${tipoStyle.text} shadow-lg`}>
                       {ativo.tipo}
                     </span>
                   </dd>
                 </div>
+              </div>
+              
+              <div className="space-y-6">
                 {ativo.descricao && (
-                  <div>
-                    <dt className="text-sm font-medium text-gray-500">Descrição</dt>
-                    <dd className="text-sm text-gray-900">{ativo.descricao}</dd>
+                  <div className="p-4 bg-gray-50 rounded-xl">
+                    <dt className="text-sm font-medium text-gray-500 mb-2">Descrição</dt>
+                    <dd className="text-lg text-gray-900">{ativo.descricao}</dd>
                   </div>
                 )}
-                <div>
-                  <dt className="text-sm font-medium text-gray-500">Cadastrado em</dt>
-                  <dd className="text-sm text-gray-900 flex items-center">
-                    <Calendar className="h-4 w-4 mr-1 text-gray-400" />
+                
+                <div className="p-4 bg-gray-50 rounded-xl">
+                  <dt className="text-sm font-medium text-gray-500 mb-2">Data de Cadastro</dt>
+                  <dd className="text-lg text-gray-900 flex items-center">
+                    <Calendar className="h-5 w-5 mr-2 text-gray-400" />
                     {formatDate(ativo.createdAt)}
                   </dd>
                 </div>
-                <div>
-                  <dt className="text-sm font-medium text-gray-500">Última atualização</dt>
-                  <dd className="text-sm text-gray-900 flex items-center">
-                    <Calendar className="h-4 w-4 mr-1 text-gray-400" />
+                
+                <div className="p-4 bg-gray-50 rounded-xl">
+                  <dt className="text-sm font-medium text-gray-500 mb-2">Última Atualização</dt>
+                  <dd className="text-lg text-gray-900 flex items-center">
+                    <Calendar className="h-5 w-5 mr-2 text-gray-400" />
                     {formatDate(ativo.updatedAt)}
                   </dd>
                 </div>
-              </dl>
+              </div>
             </div>
+          </div>
+        </div>
 
-            {/* Estatísticas de alocações */}
-            <div className="md:col-span-2">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Alocações dos Clientes</h3>
-              
-              {!ativo.alocacoes || ativo.alocacoes.length === 0 ? (
-                <div className="text-center py-8 text-gray-500">
-                  <TrendingUp className="mx-auto h-12 w-12 text-gray-400 mb-2" />
-                  <p>Nenhuma alocação encontrada para este ativo</p>
+        {/* Alocações dos Clientes */}
+        <div className="bg-white shadow-xl rounded-2xl border border-gray-100 overflow-hidden">
+          <div className="p-8">
+            <div className="flex items-center mb-6">
+              <div className="bg-purple-50 rounded-lg p-2 mr-3">
+                <BarChart3 className="h-5 w-5 text-purple-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900">Alocações dos Clientes</h3>
+            </div>
+            
+            {!ativo.alocacoes || ativo.alocacoes.length === 0 ? (
+              <div className="text-center py-12">
+                <div className="bg-gray-50 rounded-full p-6 w-24 h-24 mx-auto mb-6 flex items-center justify-center">
+                  <TrendingUp className="h-12 w-12 text-gray-400" />
                 </div>
-              ) : (
-                <div className="space-y-4">
-                  {/* Resumo */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <div className="bg-blue-50 rounded-lg p-4">
-                      <div className="flex items-center">
-                        <User className="h-5 w-5 text-blue-600 mr-2" />
-                        <div>
-                          <p className="text-sm font-medium text-blue-600">Total de Investidores</p>
-                          <p className="text-lg font-bold text-blue-900">{ativo.alocacoes.length}</p>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">Nenhuma alocação encontrada</h3>
+                <p className="text-gray-500">Este ativo ainda não possui investimentos de clientes.</p>
+              </div>
+            ) : (
+              <div className="space-y-6">
+                {/* Resumo */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="group relative bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 text-white overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                    <div className="relative">
+                      <div className="flex items-center justify-between mb-4">
+                        <User className="h-8 w-8 text-blue-100" />
+                        <div className="text-right">
+                          <p className="text-sm text-blue-100">Total de Investidores</p>
+                          <p className="text-2xl font-bold">{ativo.alocacoes.length}</p>
                         </div>
                       </div>
                     </div>
-                    
-                    <div className="bg-green-50 rounded-lg p-4">
-                      <div className="flex items-center">
-                        <TrendingUp className="h-5 w-5 text-green-600 mr-2" />
-                        <div>
-                          <p className="text-sm font-medium text-green-600">Número de Alocações</p>
-                          <p className="text-lg font-bold text-green-900">
+                  </div>
+                  
+                  <div className="group relative bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl p-6 text-white overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                    <div className="relative">
+                      <div className="flex items-center justify-between mb-4">
+                        <TrendingUp className="h-8 w-8 text-emerald-100" />
+                        <div className="text-right">
+                          <p className="text-sm text-emerald-100">Número de Alocações</p>
+                          <p className="text-2xl font-bold">
                             {ativo.alocacoes.length.toLocaleString('pt-BR')}
                           </p>
                         </div>
                       </div>
                     </div>
-                    
-                    <div className="bg-yellow-50 rounded-lg p-4">
-                      <div className="flex items-center">
-                        <DollarSign className="h-5 w-5 text-yellow-600 mr-2" />
-                        <div>
-                          <p className="text-sm font-medium text-yellow-600">Valor Total Investido</p>
-                          <p className="text-lg font-bold text-yellow-900">
+                  </div>
+                  
+                  <div className="group relative bg-gradient-to-br from-amber-500 to-amber-600 rounded-2xl p-6 text-white overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                    <div className="relative">
+                      <div className="flex items-center justify-between mb-4">
+                        <DollarSign className="h-8 w-8 text-amber-100" />
+                        <div className="text-right">
+                          <p className="text-sm text-amber-100">Valor Total Investido</p>
+                          <p className="text-2xl font-bold">
                             {formatCurrency(
                               ativo.alocacoes.reduce((acc, alocacao) => 
                                 acc + alocacao.valor, 0
@@ -175,40 +230,46 @@ export default function AtivoDetailPage() {
                       </div>
                     </div>
                   </div>
+                </div>
 
-                  {/* Lista de alocações */}
+                {/* Lista de alocações */}
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-900 mb-4">Detalhes das Alocações</h4>
                   <div className="space-y-3">
-                    <h4 className="font-medium text-gray-900">Detalhes das Alocações</h4>
-                    <div className="space-y-2">
-                      {ativo.alocacoes.map((alocacao) => (
-                        <div key={alocacao.id} className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-3">
-                              <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                                <User className="h-4 w-4 text-blue-600" />
-                              </div>
-                              <div>
-                                <p className="font-medium text-gray-900">
-                                  {alocacao.cliente?.nome || `Cliente ID: ${alocacao.clienteId}`}
-                                </p>
-                                {alocacao.cliente?.email && (
-                                  <p className="text-sm text-gray-500">{alocacao.cliente.email}</p>
-                                )}
+                    {ativo.alocacoes.map((alocacao) => (
+                      <div key={alocacao.id} className="group relative bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-2xl hover:border-blue-200 transition-all duration-300 transform hover:-translate-y-1 overflow-hidden">
+                        {/* Background gradient overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-indigo-50 opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
+                        
+                        <div className="relative flex items-center justify-between">
+                          <div className="flex items-center space-x-4">
+                            <div className="flex-shrink-0">
+                              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-200">
+                                <User className="h-6 w-6 text-white" />
                               </div>
                             </div>
-                            <div className="text-right">
-                              <p className="text-sm font-medium text-green-600">
-                                Valor: {formatCurrency(alocacao.valor)}
+                            <div>
+                              <p className="text-lg font-semibold text-gray-900 group-hover:text-blue-900 transition-colors">
+                                {alocacao.cliente?.nome || `Cliente ID: ${alocacao.clienteId}`}
                               </p>
+                              {alocacao.cliente?.email && (
+                                <p className="text-sm text-gray-500">{alocacao.cliente.email}</p>
+                              )}
                             </div>
                           </div>
+                          <div className="text-right">
+                            <p className="text-lg font-bold text-emerald-600 group-hover:text-emerald-700 transition-colors">
+                              {formatCurrency(alocacao.valor)}
+                            </p>
+                            <p className="text-sm text-gray-500">Valor investido</p>
+                          </div>
                         </div>
-                      ))}
-                    </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
