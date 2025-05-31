@@ -26,13 +26,13 @@ export default function TestApiPage() {
     testApi()
   }, [])
 
-  if (loading) return <div className="text-gray-900 dark:text-white">Loading...</div>
-  if (error) return <div className="text-red-600 dark:text-red-400">Error: {error}</div>
+  if (loading) return <div className="text-gray-900">Loading...</div>
+  if (error) return <div className="text-red-600">Error: {error}</div>
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">API Test</h1>
-      <pre className="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white p-4 rounded">
+      <h1 className="text-2xl font-bold mb-4 text-gray-900">API Test</h1>
+      <pre className="bg-gray-100 text-gray-900 p-4 rounded">
         {JSON.stringify(data, null, 2)}
       </pre>
     </div>
