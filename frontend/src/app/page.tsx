@@ -22,9 +22,9 @@ export default function Home() {
         {/* Cards de estatísticas */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Card Clientes */}
-          <div className="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 overflow-hidden shadow-lg rounded-xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-            <div className="p-6">
-              <div className="flex items-center justify-between">
+          <div className="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 overflow-hidden shadow-lg rounded-xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1 min-h-[140px]">
+            <div className="p-6 h-full flex items-center">
+              <div className="flex items-center justify-between w-full">
                 <div className="flex items-center space-x-3">
                   <div className="p-3 bg-blue-500 rounded-lg shadow-lg">
                     <Users className="h-6 w-6 text-white" />
@@ -72,9 +72,9 @@ export default function Home() {
           </div>
 
           {/* Card Ativos */}
-          <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 border border-emerald-200 overflow-hidden shadow-lg rounded-xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-            <div className="p-6">
-              <div className="flex items-center justify-between">
+          <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 border border-emerald-200 overflow-hidden shadow-lg rounded-xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1 min-h-[140px]">
+            <div className="p-6 h-full flex items-center">
+              <div className="flex items-center justify-between w-full">
                 <div className="flex items-center space-x-3">
                   <div className="p-3 bg-emerald-500 rounded-lg shadow-lg">
                     <TrendingUp className="h-6 w-6 text-white" />
@@ -101,9 +101,9 @@ export default function Home() {
           </div>
 
           {/* Card Patrimônio */}
-          <div className="bg-gradient-to-br from-amber-50 to-amber-100 border border-amber-200 overflow-hidden shadow-lg rounded-xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-            <div className="p-6">
-              <div className="flex items-center justify-between">
+          <div className="bg-gradient-to-br from-amber-50 to-amber-100 border border-amber-200 overflow-hidden shadow-lg rounded-xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1 min-h-[140px]">
+            <div className="p-6 h-full flex items-center">
+              <div className="flex items-center justify-between w-full">
                 <div className="flex items-center space-x-3">
                   <div className="p-3 bg-amber-500 rounded-lg shadow-lg">
                     <DollarSign className="h-6 w-6 text-white" />
@@ -130,9 +130,9 @@ export default function Home() {
           </div>
 
           {/* Card Alocações */}
-          <div className="bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 overflow-hidden shadow-lg rounded-xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-            <div className="p-6">
-              <div className="flex items-center justify-between">
+          <div className="bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 overflow-hidden shadow-lg rounded-xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1 min-h-[140px]">
+            <div className="p-6 h-full flex items-center">
+              <div className="flex items-center justify-between w-full">
                 <div className="flex items-center space-x-3">
                   <div className="p-3 bg-purple-500 rounded-lg shadow-lg">
                     <Activity className="h-6 w-6 text-white" />
