@@ -1,0 +1,313 @@
+'use client';
+
+import { useParams } from 'next/navigation';
+import { AppLayout } from '@/components/layout';
+import { useAlocacoesPorCliente } from '@/hooks/use-alocacoes';
+import { useClientes } from '@/hooks/use-clientes';
+import { useAtivos } from '@/hooks/use-ativos';
+import { ArrowLeft, Plus, Wallet, TrendingUp, DollarSign, Edit3, Trash2 } from 'lucide-react';
+import Link from 'next/link';
+import { useState } from 'react';
+import { useCreateAlocacao, useDeleteAlocacao } from '@/hooks/use-alocacoes';
+
+export default function ClienteAlocacoesPage() {
+  const params = useParams();
+  const clienteId = params.id as string;
+  
+  const { data: alocacoesData, isLoading, error } = useAlocacoesPorCliente(clienteId);
+  const { data: ativosData } = useAtivos({ page: 1, limit: 100 }); // Buscar todos os ativos para o formulário
+  const createAlocacao = useCreateAlocacao();
+  const deleteAlocacao = useDeleteAlocacao();
+  
+  const [showForm, setShowForm] = useState(false);
+  const [formData, setFormData] = useState({
+    ativoId: '',
+    valor: ''
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!formData.ativoId || !formData.valor) {
+      alert('Todos os campos são obrigatórios');
+      return;
+    }
+
+    try {
+      await createAlocacao.mutateAsync({
+        clienteId,
+        ativoId: formData.ativoId,
+        valor: parseFloat(formData.valor)
+      });
+      
+      setFormData({ ativoId: '', valor: '' });
+      setShowForm(false);
+    } catch (error: any) {
+      alert(error.response?.data?.message || 'Erro ao criar alocação');
+    }
+  };
+
+  const handleDelete = async (alocacaoId: string) => {
+    if (confirm('Tem certeza que deseja remover esta alocação?')) {
+      try {
+        await deleteAlocacao.mutateAsync(alocacaoId);
+      } catch (error: any) {
+        alert(error.response?.data?.message || 'Erro ao remover alocação');
+      }
+    }
+  };
+
+  const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(value);
+  };
+
+  if (isLoading) {
+    return (
+      <AppLayout>
+        <div className="p-6 text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">Carregando alocações...</p>
+        </div>
+      </AppLayout>
+    );
+  }
+
+  if (error || !alocacoesData) {
+    return (
+      <AppLayout>
+        <div className="text-center py-12">
+          <div className="text-red-600 dark:text-red-400">Erro ao carregar alocações do cliente</div>
+        </div>
+      </AppLayout>
+    );
+  }
+
+  const { cliente, alocacoes, resumo } = alocacoesData;
+
+  return (
+    <AppLayout>
+      <div className="space-y-6">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <Link
+              href={`/clientes/${clienteId}`}
+              className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors"
+            >
+              <ArrowLeft className="h-5 w-5" />
+            </Link>
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center">
+                <Wallet className="h-8 w-8 mr-3 text-green-600 dark:text-green-400" />
+                Alocações de {cliente.nome}
+              </h1>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                Gerencie os investimentos do cliente
+              </p>
+            </div>
+          </div>
+          
+          <button
+            onClick={() => setShowForm(!showForm)}
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:focus:ring-offset-gray-800"
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            Nova Alocação
+          </button>
+        </div>
+
+        {/* Formulário de Nova Alocação */}
+        {showForm && (
+          <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Nova Alocação</h3>
+            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label htmlFor="ativo" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Ativo
+                </label>
+                <select
+                  id="ativo"
+                  value={formData.ativoId}
+                  onChange={(e) => setFormData(prev => ({ ...prev, ativoId: e.target.value }))}
+                  className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-green-500 focus:border-green-500"
+                  required
+                >
+                  <option value="">Selecione um ativo</option>
+                  {ativosData?.ativos.map((ativo) => (
+                    <option key={ativo.id} value={ativo.id}>
+                      {ativo.codigo} - {ativo.nome}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              
+              <div>
+                <label htmlFor="valor" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Valor (R$)
+                </label>
+                <input
+                  type="number"
+                  id="valor"
+                  step="0.01"
+                  min="0.01"
+                  value={formData.valor}
+                  onChange={(e) => setFormData(prev => ({ ...prev, valor: e.target.value }))}
+                  className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
+                  placeholder="0,00"
+                  required
+                />
+              </div>
+              
+              <div className="flex items-end space-x-2">
+                <button
+                  type="submit"
+                  disabled={createAlocacao.isPending}
+                  className="flex-1 inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:focus:ring-offset-gray-800 disabled:opacity-50"
+                >
+                  {createAlocacao.isPending ? 'Criando...' : 'Criar'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowForm(false)}
+                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                >
+                  Cancelar
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+
+        {/* Resumo */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div className="p-5">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <DollarSign className="h-6 w-6 text-green-400" />
+                </div>
+                <div className="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
+                      Total Investido
+                    </dt>
+                    <dd className="text-lg font-medium text-gray-900 dark:text-white">
+                      {formatCurrency(resumo.totalInvestido)}
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div className="p-5">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <TrendingUp className="h-6 w-6 text-blue-400" />
+                </div>
+                <div className="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
+                      Quantidade de Ativos
+                    </dt>
+                    <dd className="text-lg font-medium text-gray-900 dark:text-white">
+                      {resumo.quantidadeAtivos}
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div className="p-5">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <Wallet className="h-6 w-6 text-purple-400" />
+                </div>
+                <div className="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
+                      Valor Médio por Ativo
+                    </dt>
+                    <dd className="text-lg font-medium text-gray-900 dark:text-white">
+                      {formatCurrency(resumo.quantidadeAtivos > 0 ? resumo.totalInvestido / resumo.quantidadeAtivos : 0)}
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Lista de Alocações */}
+        <div className="bg-white dark:bg-gray-800 shadow rounded-lg">
+          <div className="px-4 py-5 sm:p-6">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Alocações Ativas</h3>
+            
+            {alocacoes.length === 0 ? (
+              <div className="text-center py-8">
+                <Wallet className="mx-auto h-12 w-12 text-gray-400" />
+                <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-white">Nenhuma alocação</h3>
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                  Comece criando uma nova alocação para este cliente.
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {alocacoes.map((alocacao) => (
+                  <div
+                    key={alocacao.id}
+                    className="border border-gray-200 dark:border-gray-600 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-3">
+                          <div className="bg-blue-100 dark:bg-blue-900 p-2 rounded-lg">
+                            <TrendingUp className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                          </div>
+                          <div>
+                            <h4 className="text-sm font-medium text-gray-900 dark:text-white">
+                              {alocacao.ativo.codigo} - {alocacao.ativo.nome}
+                            </h4>
+                            <p className="text-sm text-gray-500 dark:text-gray-400">
+                              {alocacao.ativo.tipo} • {alocacao.ativo.descricao}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center space-x-4">
+                        <div className="text-right">
+                          <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                            {formatCurrency(alocacao.valor)}
+                          </div>
+                          <div className="text-sm text-gray-500 dark:text-gray-400">
+                            {new Date(alocacao.createdAt).toLocaleDateString('pt-BR')}
+                          </div>
+                        </div>
+                        
+                        <div className="flex space-x-2">
+                          <button
+                            onClick={() => handleDelete(alocacao.id)}
+                            className="p-2 text-red-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md transition-colors"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </AppLayout>
+  );
+}
