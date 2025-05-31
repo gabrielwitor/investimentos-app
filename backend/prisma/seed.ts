@@ -31,7 +31,7 @@ async function seed() {
   ];
 
   console.log('📊 Criando ativos financeiros...');
-  const ativosCreated = [];
+  const ativosCreated: any[] = [];
   for (const ativo of ativos) {
     const ativoCreated = await prisma.ativo.create({
       data: ativo
@@ -84,7 +84,7 @@ async function seed() {
   ];
 
   console.log('👥 Criando clientes...');
-  const clientesCreated = [];
+  const clientesCreated: any[] = [];
   for (const cliente of clientes) {
     const clienteCreated = await prisma.cliente.create({
       data: cliente
@@ -94,6 +94,12 @@ async function seed() {
 
   // Criando alocações de exemplo
   console.log('🔗 Criando alocações de ativos...');
+  
+  // Verificando se temos dados suficientes para criar as alocações
+  if (clientesCreated.length < 7 || ativosCreated.length < 15) {
+    throw new Error('Dados insuficientes para criar alocações');
+  }
+
   const alocacoes = [
     // João da Silva Santos - Carteira conservadora
     { clienteId: clientesCreated[0].id, ativoId: ativosCreated[11].id, valor: 50000 }, // Tesouro IPCA+
