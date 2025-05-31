@@ -15,7 +15,7 @@ export default function ClienteAlocacoesPage() {
   const clienteId = params.id as string;
   
   const { data: alocacoesData, isLoading, error } = useAlocacoesPorCliente(clienteId);
-  const { data: ativosData } = useAtivos({ page: 1, limit: 100 }); // Buscar todos os ativos para o formulário
+  const { data: ativosData, isLoading: isLoadingAtivos } = useAtivos({ page: 1, limit: 100 }); // Buscar todos os ativos para o formulário
   const createAlocacao = useCreateAlocacao();
   const deleteAlocacao = useDeleteAlocacao();
   
@@ -136,12 +136,26 @@ export default function ClienteAlocacoesPage() {
                   required
                 >
                   <option value="">Selecione um ativo</option>
-                  {ativosData?.ativos.map((ativo) => (
-                    <option key={ativo.id} value={ativo.id}>
-                      {ativo.codigo} - {ativo.nome}
-                    </option>
-                  ))}
+                  {isLoadingAtivos ? (
+                    <option disabled>Carregando ativos...</option>
+                  ) : ativosData?.ativos && ativosData.ativos.length > 0 ? (
+                    ativosData.ativos.map((ativo) => (
+                      <option key={ativo.id} value={ativo.id}>
+                        {ativo.codigo} - {ativo.nome}
+                      </option>
+                    ))
+                  ) : (
+                    <option disabled>Nenhum ativo encontrado</option>
+                  )}
                 </select>
+                {!isLoadingAtivos && (!ativosData?.ativos || ativosData.ativos.length === 0) && (
+                  <p className="mt-1 text-sm text-red-600">
+                    Nenhum ativo disponível. 
+                    <Link href="/ativos" className="text-blue-600 hover:underline ml-1">
+                      Cadastre ativos primeiro.
+                    </Link>
+                  </p>
+                )}
               </div>
               
               <div>

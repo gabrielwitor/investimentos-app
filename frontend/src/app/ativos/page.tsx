@@ -13,7 +13,7 @@ export default function AtivosPage() {
   const [searchInput, setSearchInput] = useState('')
   
   const limit = 10
-  const { data, isLoading, error } = useAtivos(page, limit, search)
+  const { data, isLoading, error } = useAtivos({ page, limit, search })
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
