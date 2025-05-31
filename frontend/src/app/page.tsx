@@ -41,7 +41,7 @@ export default function Home() {
           <div className="relative px-4 sm:px-6 py-6 sm:py-8">
             <div className="max-w-4xl">
               <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-                Dashboard 🔥 Hot Reload Active
+                Dashboard
               </h1>
               <p className="text-base sm:text-lg text-blue-100 leading-relaxed">
                 Bem-vindo ao sistema de gestão de investimentos

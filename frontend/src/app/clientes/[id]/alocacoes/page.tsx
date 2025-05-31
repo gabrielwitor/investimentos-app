@@ -92,8 +92,8 @@ export default function ClienteAlocacoesPage() {
     <AppLayout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
+          <div className="flex items-center space-x-3 sm:space-x-4">
             <Link
               href={`/clientes/${clienteId}`}
               className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-md transition-colors"
@@ -101,11 +101,11 @@ export default function ClienteAlocacoesPage() {
               <ArrowLeft className="h-5 w-5" />
             </Link>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-                <Wallet className="h-8 w-8 mr-3 text-green-600" />
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center">
+                <Wallet className="h-6 w-6 sm:h-8 sm:w-8 mr-2 sm:mr-3 text-green-600" />
                 Alocações de {cliente.nome}
               </h1>
-              <p className="mt-2 text-sm text-gray-600">
+              <p className="mt-1 sm:mt-2 text-sm text-gray-600">
                 Gerencie os investimentos do cliente
               </p>
             </div>
@@ -113,7 +113,7 @@ export default function ClienteAlocacoesPage() {
           
           <button
             onClick={() => setShowForm(!showForm)}
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+            className="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
           >
             <Plus className="h-4 w-4 mr-2" />
             Nova Alocação
@@ -122,9 +122,9 @@ export default function ClienteAlocacoesPage() {
 
         {/* Formulário de Nova Alocação */}
         {showForm && (
-          <div className="bg-white shadow rounded-lg p-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">Nova Alocação</h3>
-            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-white shadow rounded-lg p-4 sm:p-6">
+            <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-4">Nova Alocação</h3>
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-1 md:grid-cols-3 sm:gap-4">
               <div>
                 <label htmlFor="ativo" className="block text-sm font-medium text-gray-700">
                   Ativo
@@ -176,7 +176,7 @@ export default function ClienteAlocacoesPage() {
                 />
               </div>
               
-              <div className="flex items-end space-x-2">
+              <div className="flex flex-col sm:flex-row sm:items-end space-y-2 sm:space-y-0 sm:space-x-2">
                 <button
                   type="submit"
                   disabled={createAlocacao.isPending}
@@ -187,7 +187,7 @@ export default function ClienteAlocacoesPage() {
                 <button
                   type="button"
                   onClick={() => setShowForm(false)}
-                  className="px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                  className="flex-1 sm:flex-initial px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
                 >
                   Cancelar
                 </button>
@@ -197,19 +197,19 @@ export default function ClienteAlocacoesPage() {
         )}
 
         {/* Resumo */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           <div className="bg-white overflow-hidden shadow rounded-lg">
-            <div className="p-5">
+            <div className="p-4 sm:p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <DollarSign className="h-6 w-6 text-green-400" />
+                  <DollarSign className="h-5 w-5 sm:h-6 sm:w-6 text-green-400" />
                 </div>
-                <div className="ml-5 w-0 flex-1">
+                <div className="ml-4 sm:ml-5 w-0 flex-1">
                   <dl>
                     <dt className="text-sm font-medium text-gray-500 truncate">
                       Total Investido
                     </dt>
-                    <dd className="text-lg font-medium text-gray-900">
+                    <dd className="text-base sm:text-lg font-medium text-gray-900">
                       {formatCurrency(resumo.totalInvestido)}
                     </dd>
                   </dl>
@@ -219,17 +219,17 @@ export default function ClienteAlocacoesPage() {
           </div>
 
           <div className="bg-white overflow-hidden shadow rounded-lg">
-            <div className="p-5">
+            <div className="p-4 sm:p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <TrendingUp className="h-6 w-6 text-blue-400" />
+                  <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-blue-400" />
                 </div>
-                <div className="ml-5 w-0 flex-1">
+                <div className="ml-4 sm:ml-5 w-0 flex-1">
                   <dl>
                     <dt className="text-sm font-medium text-gray-500 truncate">
                       Quantidade de Ativos
                     </dt>
-                    <dd className="text-lg font-medium text-gray-900">
+                    <dd className="text-base sm:text-lg font-medium text-gray-900">
                       {resumo.quantidadeAtivos}
                     </dd>
                   </dl>
@@ -238,18 +238,18 @@ export default function ClienteAlocacoesPage() {
             </div>
           </div>
 
-          <div className="bg-white overflow-hidden shadow rounded-lg">
-            <div className="p-5">
+          <div className="bg-white overflow-hidden shadow rounded-lg sm:col-span-2 lg:col-span-1">
+            <div className="p-4 sm:p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <Wallet className="h-6 w-6 text-purple-400" />
+                  <Wallet className="h-5 w-5 sm:h-6 sm:w-6 text-purple-400" />
                 </div>
-                <div className="ml-5 w-0 flex-1">
+                <div className="ml-4 sm:ml-5 w-0 flex-1">
                   <dl>
                     <dt className="text-sm font-medium text-gray-500 truncate">
                       Valor Médio por Ativo
                     </dt>
-                    <dd className="text-lg font-medium text-gray-900">
+                    <dd className="text-base sm:text-lg font-medium text-gray-900">
                       {formatCurrency(resumo.quantidadeAtivos > 0 ? resumo.totalInvestido / resumo.quantidadeAtivos : 0)}
                     </dd>
                   </dl>
@@ -261,47 +261,47 @@ export default function ClienteAlocacoesPage() {
 
         {/* Lista de Alocações */}
         <div className="bg-white shadow rounded-lg">
-          <div className="px-4 py-5 sm:p-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">Alocações Ativas</h3>
+          <div className="px-4 py-4 sm:px-6 sm:py-5">
+            <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-4">Alocações Ativas</h3>
             
             {alocacoes.length === 0 ? (
-              <div className="text-center py-8">
-                <Wallet className="mx-auto h-12 w-12 text-gray-400" />
+              <div className="text-center py-6 sm:py-8">
+                <Wallet className="mx-auto h-10 w-10 sm:h-12 sm:w-12 text-gray-400" />
                 <h3 className="mt-2 text-sm font-medium text-gray-900">Nenhuma alocação</h3>
                 <p className="mt-1 text-sm text-gray-500">
                   Comece criando uma nova alocação para este cliente.
                 </p>
               </div>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {alocacoes.map((alocacao) => (
                   <div
                     key={alocacao.id}
-                    className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors"
+                    className="border border-gray-200 rounded-lg p-3 sm:p-4 hover:bg-gray-50 transition-colors"
                   >
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
                       <div className="flex-1">
                         <div className="flex items-center space-x-3">
                           <div className="bg-blue-100 p-2 rounded-lg">
-                            <TrendingUp className="h-5 w-5 text-blue-600" />
+                            <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
                           </div>
                           <div>
                             <h4 className="text-sm font-medium text-gray-900">
                               {alocacao.ativo.codigo} - {alocacao.ativo.nome}
                             </h4>
-                            <p className="text-sm text-gray-500">
+                            <p className="text-xs sm:text-sm text-gray-500">
                               {alocacao.ativo.tipo} • {alocacao.ativo.descricao}
                             </p>
                           </div>
                         </div>
                       </div>
                       
-                      <div className="flex items-center space-x-4">
-                        <div className="text-right">
-                          <div className="text-lg font-semibold text-gray-900">
+                      <div className="flex items-center justify-between sm:justify-end sm:space-x-4">
+                        <div className="text-left sm:text-right">
+                          <div className="text-base sm:text-lg font-semibold text-gray-900">
                             {formatCurrency(alocacao.valor)}
                           </div>
-                          <div className="text-sm text-gray-500">
+                          <div className="text-xs sm:text-sm text-gray-500">
                             {new Date(alocacao.createdAt).toLocaleDateString('pt-BR')}
                           </div>
                         </div>
@@ -310,6 +310,7 @@ export default function ClienteAlocacoesPage() {
                           <button
                             onClick={() => handleDelete(alocacao.id)}
                             className="p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
+                            title="Remover alocação"
                           >
                             <Trash2 className="h-4 w-4" />
                           </button>

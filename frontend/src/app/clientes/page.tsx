@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { AppLayout } from '@/components/layout'
 import { useClientes, useDeleteCliente } from '@/hooks/use-clientes'
-import { Users, Search, Edit, Trash2, Eye, Mail, User, UserPlus, Sparkles, CheckCircle, XCircle, Activity } from 'lucide-react'
+import { Users, Search, Edit, Trash2, Eye, Mail, User, UserPlus, Sparkles, CheckCircle, XCircle, Activity, Wallet } from 'lucide-react'
 import Link from 'next/link'
 import { formatDate } from '@/lib/utils'
 
@@ -172,19 +172,19 @@ export default function ClientesPage() {
                       <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-indigo-50 opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
                       
                       <div className="relative">
-                        <div className="flex items-start justify-between">
+                        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between space-y-4 sm:space-y-0">
                           <div className="flex-1">
                             <div className="flex items-center space-x-4 mb-4">
                               <div className="flex-shrink-0">
-                                <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-200">
-                                  <User className="h-7 w-7 text-white" />
+                                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-200">
+                                  <User className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
                                 </div>
                               </div>
                               <div className="flex-1">
-                                <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-900 transition-colors mb-1">
+                                <h3 className="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-blue-900 transition-colors mb-1">
                                   {cliente.nome}
                                 </h3>
-                                <div className="flex items-center space-x-4">
+                                <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-4">
                                   <div className="flex items-center">
                                     <Mail className="h-4 w-4 mr-2 text-gray-400" />
                                     <span className="text-sm text-gray-600">{cliente.email}</span>
@@ -210,32 +210,45 @@ export default function ClientesPage() {
                               <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
                               Cadastrado em: {formatDate(cliente.createdAt)}
                             </div>
-                          </div>
-                          
-                          <div className="flex items-center space-x-2">
-                            <Link
-                              href={`/clientes/${cliente.id}`}
-                              className="p-3 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-200 group-hover:scale-110"
-                              title="Visualizar detalhes"
-                            >
-                              <Eye className="h-5 w-5" />
-                            </Link>
-                            <Link
-                              href={`/clientes/${cliente.id}/editar`}
-                              className="p-3 text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all duration-200 group-hover:scale-110"
-                              title="Editar cliente"
-                            >
-                              <Edit className="h-5 w-5" />
-                            </Link>
-                            <button
-                              onClick={() => handleDelete(cliente.id, cliente.nome)}
-                              className="p-3 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200 group-hover:scale-110 disabled:opacity-50"
-                              title="Deletar cliente"
-                              disabled={deleteCliente.isPending}
-                            >
-                              <Trash2 className="h-5 w-5" />
-                            </button>
-                          </div>
+                          </div>                            {/* Mobile-responsive action buttons */}
+                            <div className="pt-3 sm:pt-0 border-t sm:border-t-0 border-gray-100">
+                              {/* Mobile: 2x2 grid, Tablet+: horizontal row */}
+                              <div className="grid grid-cols-2 sm:flex sm:flex-row gap-2 sm:gap-3">
+                                <Link
+                                  href={`/clientes/${cliente.id}`}
+                                  className="inline-flex items-center justify-center px-2 sm:px-3 py-2 text-xs font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-all duration-200 group-hover:scale-105"
+                                  title="Visualizar detalhes"
+                                >
+                                  <Eye className="h-4 w-4 mr-1" />
+                                  <span>Ver</span>
+                                </Link>
+                                <Link
+                                  href={`/clientes/${cliente.id}/alocacoes`}
+                                  className="inline-flex items-center justify-center px-2 sm:px-3 py-2 text-xs font-medium text-purple-600 bg-purple-50 hover:bg-purple-100 rounded-lg transition-all duration-200 group-hover:scale-105"
+                                  title="Ver alocações"
+                                >
+                                  <Wallet className="h-4 w-4 mr-1" />
+                                  <span>Carteira</span>
+                                </Link>
+                                <Link
+                                  href={`/clientes/${cliente.id}/editar`}
+                                  className="inline-flex items-center justify-center px-2 sm:px-3 py-2 text-xs font-medium text-emerald-600 bg-emerald-50 hover:bg-emerald-100 rounded-lg transition-all duration-200 group-hover:scale-105"
+                                  title="Editar cliente"
+                                >
+                                  <Edit className="h-4 w-4 mr-1" />
+                                  <span>Editar</span>
+                                </Link>
+                                <button
+                                  onClick={() => handleDelete(cliente.id, cliente.nome)}
+                                  className="inline-flex items-center justify-center px-2 sm:px-3 py-2 text-xs font-medium text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-all duration-200 group-hover:scale-105 disabled:opacity-50"
+                                  title="Deletar cliente"
+                                  disabled={deleteCliente.isPending}
+                                >
+                                  <Trash2 className="h-4 w-4 mr-1" />
+                                  <span>Excluir</span>
+                                </button>
+                              </div>
+                            </div>
                         </div>
                       </div>
                     </div>

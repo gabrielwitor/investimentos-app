@@ -16,12 +16,8 @@ export function Navigation() {
   }
 
   return (
-    <nav className="relative bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 shadow-2xl border-b border-white/20">
-      {/* Glass morphism background overlay */}
-      <div className="absolute inset-0 bg-black/10"></div>
-      <div className="absolute inset-0 backdrop-blur-sm bg-gradient-to-r from-white/5 to-transparent"></div>
-      
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 shadow-2xl border-b border-white/20 backdrop-blur-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex">
             {/* Logo Section */}
@@ -42,29 +38,24 @@ export function Navigation() {
             <div className="hidden sm:ml-8 sm:flex sm:space-x-2">
               <Link
                 href="/"
-                className="group relative inline-flex items-center px-4 py-2 text-sm font-medium text-white/90 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10 border border-transparent hover:border-white/20"
+                className="group inline-flex items-center px-4 py-2 text-sm font-medium text-white/90 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10 border border-transparent hover:border-white/20"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
                 <Home className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform duration-300" />
-                <span className="relative">Dashboard</span>
+                <span>Dashboard</span>
               </Link>
-              
               <Link
                 href="/clientes"
-                className="group relative inline-flex items-center px-4 py-2 text-sm font-medium text-white/90 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10 border border-transparent hover:border-white/20"
+                className="group inline-flex items-center px-4 py-2 text-sm font-medium text-white/90 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10 border border-transparent hover:border-white/20"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
                 <Users className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform duration-300" />
-                <span className="relative">Clientes</span>
+                <span>Clientes</span>
               </Link>
-              
               <Link
                 href="/ativos"
-                className="group relative inline-flex items-center px-4 py-2 text-sm font-medium text-white/90 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10 border border-transparent hover:border-white/20"
+                className="group inline-flex items-center px-4 py-2 text-sm font-medium text-white/90 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10 border border-transparent hover:border-white/20"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
                 <TrendingUp className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform duration-300" />
-                <span className="relative">Ativos</span>
+                <span>Ativos</span>
               </Link>
             </div>
           </div>
@@ -75,19 +66,16 @@ export function Navigation() {
             <div className="sm:hidden">
               <button
                 onClick={toggleMobileMenu}
-                className="group relative inline-flex items-center justify-center p-2 text-white/90 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10 border border-transparent hover:border-white/20"
+                className="group inline-flex items-center justify-center p-2 text-white/90 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10 border border-transparent hover:border-white/20"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
                 <span className="sr-only">Open main menu</span>
                 {isMobileMenuOpen ? (
-                  <X className="h-6 w-6 relative" aria-hidden="true" />
+                  <X className="h-6 w-6" aria-hidden="true" />
                 ) : (
-                  <Menu className="h-6 w-6 relative" aria-hidden="true" />
+                  <Menu className="h-6 w-6" aria-hidden="true" />
                 )}
               </button>
             </div>
-
-            {/* Desktop right side - could add user menu, notifications, etc. */}
             <div className="hidden sm:flex items-center space-x-3">
             </div>
           </div>
@@ -100,39 +88,31 @@ export function Navigation() {
           ? 'max-h-64 opacity-100' 
           : 'max-h-0 opacity-0 overflow-hidden'
       }`}>
-        <div className="relative bg-gradient-to-r from-blue-700 via-purple-700 to-indigo-800 border-t border-white/10">
-          <div className="absolute inset-0 bg-black/20"></div>
-          <div className="absolute inset-0 backdrop-blur-sm bg-gradient-to-r from-white/5 to-transparent"></div>
-          
-          <div className="relative px-4 pt-2 pb-3 space-y-1">
+        <div className="bg-gradient-to-r from-blue-700 via-purple-700 to-indigo-800 border-t border-white/10 backdrop-blur-sm">
+          <div className="px-4 pt-2 pb-3 space-y-1">
             <Link
               href="/"
               onClick={closeMobileMenu}
               className="group flex items-center px-3 py-3 text-base font-medium text-white/90 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10 border border-transparent hover:border-white/20"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
-              <Home className="h-5 w-5 mr-3 relative group-hover:scale-110 transition-transform duration-300" />
-              <span className="relative">Dashboard</span>
+              <Home className="h-5 w-5 mr-3 group-hover:scale-110 transition-transform duration-300" />
+              <span>Dashboard</span>
             </Link>
-            
             <Link
               href="/clientes"
               onClick={closeMobileMenu}
               className="group flex items-center px-3 py-3 text-base font-medium text-white/90 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10 border border-transparent hover:border-white/20"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
-              <Users className="h-5 w-5 mr-3 relative group-hover:scale-110 transition-transform duration-300" />
-              <span className="relative">Clientes</span>
+              <Users className="h-5 w-5 mr-3 group-hover:scale-110 transition-transform duration-300" />
+              <span>Clientes</span>
             </Link>
-            
             <Link
               href="/ativos"
               onClick={closeMobileMenu}
               className="group flex items-center px-3 py-3 text-base font-medium text-white/90 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10 border border-transparent hover:border-white/20"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
-              <TrendingUp className="h-5 w-5 mr-3 relative group-hover:scale-110 transition-transform duration-300" />
-              <span className="relative">Ativos</span>
+              <TrendingUp className="h-5 w-5 mr-3 group-hover:scale-110 transition-transform duration-300" />
+              <span>Ativos</span>
             </Link>
           </div>
         </div>
