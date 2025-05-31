@@ -85,10 +85,10 @@ O **InvestApp Pro** é uma aplicação web de última geração desenvolvida esp
 git clone https://github.com/seu-usuario/investimentos-app.git
 cd investimentos-app
 
-# 2. Executar com Docker Compose (tudo automatizado!)
+# 2. Executar com Docker Compose
 docker-compose up -d
 
-# 3. Aguardar inicialização (cerca de 2-3 minutos)
+# 3. Aguardar inicialização
 # ✅ Frontend: http://localhost:3000
 # ✅ Backend API: http://localhost:3001
 # ✅ Database: localhost:3306
@@ -134,21 +134,30 @@ Após executar o seed, você terá:
 Para desenvolvimento com hot-reload:
 
 ```bash
-# Terminal 1 - Backend
+# Terminal 1 - Banco de dados
+docker-compose up -d db
+
+# Terminal 2 - Backend
 cd backend
 cp .env.example .env
+# Edit .env to change DATABASE_URL from @db:3306 to @localhost:3306
 npm install
 npm run db:generate
 npm run db:migrate
 npm run db:seed
 npm run dev
 
-# Terminal 2 - Frontend  
+# Terminal 3 - Frontend  
 cd frontend
 cp .env.example .env.local
 npm install
 npm run dev
 ```
+
+> **📝 Nota:** Para desenvolvimento local, você precisa:
+> 1. Executar `docker-compose up -d db` para ter o MySQL disponível
+> 2. Alterar o `.env` do backend para usar `@localhost:3306` em vez de `@db:3306`
+> 3. O frontend rodará em `http://localhost:3000` e o backend em `http://localhost:3001`
 
 ### **Variáveis de Ambiente**
 

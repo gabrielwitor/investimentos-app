@@ -1,7 +1,20 @@
+'use client'
+
 import Link from 'next/link'
-import { Users, TrendingUp, Home } from 'lucide-react'
+import { Users, TrendingUp, Home, Menu, X } from 'lucide-react'
+import { useState } from 'react'
 
 export function Navigation() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen)
+  }
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false)
+  }
+
   return (
     <nav className="relative bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 shadow-2xl border-b border-white/20">
       {/* Glass morphism background overlay */}
@@ -56,10 +69,71 @@ export function Navigation() {
             </div>
           </div>
 
-          {/* Right side - could add user menu, notifications, etc. */}
+          {/* Right side - Mobile menu button */}
           <div className="flex items-center">
+            {/* Mobile menu button */}
+            <div className="sm:hidden">
+              <button
+                onClick={toggleMobileMenu}
+                className="group relative inline-flex items-center justify-center p-2 text-white/90 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10 border border-transparent hover:border-white/20"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+                <span className="sr-only">Open main menu</span>
+                {isMobileMenuOpen ? (
+                  <X className="h-6 w-6 relative" aria-hidden="true" />
+                ) : (
+                  <Menu className="h-6 w-6 relative" aria-hidden="true" />
+                )}
+              </button>
+            </div>
+
+            {/* Desktop right side - could add user menu, notifications, etc. */}
             <div className="hidden sm:flex items-center space-x-3">
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      <div className={`sm:hidden transition-all duration-300 ease-in-out ${
+        isMobileMenuOpen 
+          ? 'max-h-64 opacity-100' 
+          : 'max-h-0 opacity-0 overflow-hidden'
+      }`}>
+        <div className="relative bg-gradient-to-r from-blue-700 via-purple-700 to-indigo-800 border-t border-white/10">
+          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="absolute inset-0 backdrop-blur-sm bg-gradient-to-r from-white/5 to-transparent"></div>
+          
+          <div className="relative px-4 pt-2 pb-3 space-y-1">
+            <Link
+              href="/"
+              onClick={closeMobileMenu}
+              className="group flex items-center px-3 py-3 text-base font-medium text-white/90 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10 border border-transparent hover:border-white/20"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+              <Home className="h-5 w-5 mr-3 relative group-hover:scale-110 transition-transform duration-300" />
+              <span className="relative">Dashboard</span>
+            </Link>
+            
+            <Link
+              href="/clientes"
+              onClick={closeMobileMenu}
+              className="group flex items-center px-3 py-3 text-base font-medium text-white/90 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10 border border-transparent hover:border-white/20"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+              <Users className="h-5 w-5 mr-3 relative group-hover:scale-110 transition-transform duration-300" />
+              <span className="relative">Clientes</span>
+            </Link>
+            
+            <Link
+              href="/ativos"
+              onClick={closeMobileMenu}
+              className="group flex items-center px-3 py-3 text-base font-medium text-white/90 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10 border border-transparent hover:border-white/20"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+              <TrendingUp className="h-5 w-5 mr-3 relative group-hover:scale-110 transition-transform duration-300" />
+              <span className="relative">Ativos</span>
+            </Link>
           </div>
         </div>
       </div>

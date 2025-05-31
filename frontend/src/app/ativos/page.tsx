@@ -79,28 +79,29 @@ export default function AtivosPage() {
       <div className="space-y-6">
         {/* Header */}
         <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 rounded-2xl shadow-xl">
-          <div className="px-8 py-12 text-white">
+          <div className="px-4 sm:px-6 lg:px-8 py-8 lg:py-12 text-white">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-4xl font-bold flex items-center mb-4">
-                  <div className="bg-white/20 backdrop-blur-sm rounded-xl p-3 mr-4">
-                    <TrendingUp className="h-10 w-10" />
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold flex items-center mb-4">
+                  <div className="bg-white/20 backdrop-blur-sm rounded-xl p-2 lg:p-3 mr-3 lg:mr-4">
+                    <TrendingUp className="h-6 w-6 lg:h-10 lg:w-10" />
                   </div>
-                  Ativos Financeiros
+                  <span className="hidden sm:inline">Ativos Financeiros</span>
+                  <span className="sm:hidden">Ativos</span>
                 </h1>
-                <p className="text-xl text-blue-100 max-w-2xl">
+                <p className="text-base sm:text-lg lg:text-xl text-blue-100 max-w-2xl">
                   Explore nossa seleção completa de ativos disponíveis para investimento
                 </p>
-                <div className="flex items-center mt-4 space-x-6">
+                <div className="flex flex-col sm:flex-row sm:items-center mt-4 sm:space-x-6 space-y-2 sm:space-y-0">
                   <div className="flex items-center">
-                    <Building2 className="h-5 w-5 mr-2 text-blue-200" />
-                    <span className="text-blue-100">
+                    <Building2 className="h-4 w-4 lg:h-5 lg:w-5 mr-2 text-blue-200" />
+                    <span className="text-sm lg:text-base text-blue-100">
                       {data?.pagination?.total || 0} ativos disponíveis
                     </span>
                   </div>
                   <div className="flex items-center">
-                    <Sparkles className="h-5 w-5 mr-2 text-blue-200" />
-                    <span className="text-blue-100">Dados atualizados</span>
+                    <Sparkles className="h-4 w-4 lg:h-5 lg:w-5 mr-2 text-blue-200" />
+                    <span className="text-sm lg:text-base text-blue-100">Dados atualizados</span>
                   </div>
                 </div>
               </div>
@@ -110,45 +111,47 @@ export default function AtivosPage() {
 
         {/* Search */}
         <div className="bg-white shadow-xl rounded-2xl border border-gray-100">
-          <div className="p-8">
-            <div className="flex items-center mb-6">
+          <div className="p-4 sm:p-6 lg:p-8">
+            <div className="flex items-center mb-4 lg:mb-6">
               <div className="bg-blue-50 rounded-lg p-2 mr-3">
-                <Search className="h-5 w-5 text-blue-600" />
+                <Search className="h-4 w-4 lg:h-5 lg:w-5 text-blue-600" />
               </div>
-              <h2 className="text-lg font-semibold text-gray-900">Buscar Ativos</h2>
+              <h2 className="text-base lg:text-lg font-semibold text-gray-900">Buscar Ativos</h2>
             </div>
-            <form onSubmit={handleSearch} className="flex gap-4">
+            <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-4">
               <div className="flex-1">
                 <div className="relative">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 lg:h-5 lg:w-5" />
                   <input
                     type="text"
                     placeholder="Digite o nome, código ou tipo do ativo..."
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}
-                    className="block w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl shadow-sm bg-gray-50 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all duration-200"
+                    className="block w-full pl-10 lg:pl-12 pr-4 py-2.5 lg:py-3 border border-gray-200 rounded-xl shadow-sm bg-gray-50 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all duration-200 text-sm lg:text-base"
                   />
                 </div>
               </div>
-              <button
-                type="submit"
-                className="px-6 py-3 border border-transparent text-sm font-semibold rounded-xl text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
-              >
-                Buscar
-              </button>
-              {search && (
+              <div className="flex space-x-2 sm:space-x-4">
                 <button
-                  type="button"
-                  onClick={() => {
-                    setSearch('')
-                    setSearchInput('')
-                    setPage(1)
-                  }}
-                  className="px-6 py-3 border border-gray-200 text-sm font-medium rounded-xl text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
+                  type="submit"
+                  className="flex-1 sm:flex-initial px-4 lg:px-6 py-2.5 lg:py-3 border border-transparent text-sm font-semibold rounded-xl text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
                 >
-                  Limpar
+                  Buscar
                 </button>
-              )}
+                {search && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSearch('')
+                      setSearchInput('')
+                      setPage(1)
+                    }}
+                    className="flex-1 sm:flex-initial px-4 lg:px-6 py-2.5 lg:py-3 border border-gray-200 text-sm font-medium rounded-xl text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
+                  >
+                    Limpar
+                  </button>
+                )}
+              </div>
             </form>
           </div>
         </div>

@@ -38,15 +38,15 @@ export default function Home() {
         <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700 shadow-2xl">
           <div className="absolute inset-0 bg-black/20"></div>
           <div className="absolute inset-0 backdrop-blur-sm bg-gradient-to-br from-white/10 to-transparent"></div>
-          <div className="relative px-6 py-8">
+          <div className="relative px-4 sm:px-6 py-6 sm:py-8">
             <div className="max-w-4xl">
-              <h1 className="text-3xl font-bold text-white mb-2">
-                Dashboard
+              <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">
+                Dashboard 🔥 Hot Reload Active
               </h1>
-              <p className="text-lg text-blue-100 leading-relaxed">
+              <p className="text-base sm:text-lg text-blue-100 leading-relaxed">
                 Bem-vindo ao sistema de gestão de investimentos
               </p>
-              <p className="text-blue-200 mt-1 text-sm">
+              <p className="text-blue-200 mt-1 text-xs sm:text-sm">
                 Monitore seus clientes, ativos e alocações em tempo real
               </p>
             </div>
@@ -54,11 +54,11 @@ export default function Home() {
         </div>
 
         {/* Enhanced Statistics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 flex-shrink-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 flex-shrink-0">
           {/* Card Clientes */}
           <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 h-[140px]">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-blue-800/10"></div>
-            <div className="relative p-5 h-full flex flex-col">
+            <div className="relative p-4 sm:p-5 h-full flex flex-col">
               <div className="flex items-center justify-between mb-3">
                 <div className="p-2.5 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
                   <Users className="h-6 w-6 text-white" />
@@ -101,7 +101,7 @@ export default function Home() {
           {/* Card Ativos */}
           <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-50 via-emerald-100 to-emerald-200 border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 h-[140px]">
             <div className="absolute inset-0 bg-gradient-to-br from-emerald-600/5 to-emerald-800/10"></div>
-            <div className="relative p-5 h-full flex flex-col">
+            <div className="relative p-4 sm:p-5 h-full flex flex-col">
               <div className="flex items-center justify-between mb-3">
                 <div className="p-2.5 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
                   <TrendingUp className="h-6 w-6 text-white" />
@@ -128,7 +128,7 @@ export default function Home() {
           {/* Card Patrimônio */}
           <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-amber-50 via-amber-100 to-amber-200 border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 h-[140px]">
             <div className="absolute inset-0 bg-gradient-to-br from-amber-600/5 to-amber-800/10"></div>
-            <div className="relative p-5 h-full flex flex-col">
+            <div className="relative p-4 sm:p-5 h-full flex flex-col">
               <div className="flex items-center justify-between mb-3">
                 <div className="p-2.5 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
                   <DollarSign className="h-6 w-6 text-white" />
@@ -155,7 +155,7 @@ export default function Home() {
           {/* Card Alocações */}
           <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-50 via-purple-100 to-purple-200 border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 h-[140px]">
             <div className="absolute inset-0 bg-gradient-to-br from-purple-600/5 to-purple-800/10"></div>
-            <div className="relative p-5 h-full flex flex-col">
+            <div className="relative p-4 sm:p-5 h-full flex flex-col">
               <div className="flex items-center justify-between mb-3">
                 <div className="p-2.5 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
                   <Activity className="h-6 w-6 text-white" />
@@ -184,31 +184,31 @@ export default function Home() {
         <div className="flex-1 min-h-0">
           <div className="relative overflow-hidden rounded-2xl bg-white shadow-xl border-0 h-full">
             <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-white"></div>
-            <div className="relative px-6 py-6 h-full flex flex-col">
-              <div className="text-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+            <div className="relative px-4 sm:px-6 py-4 sm:py-6 h-full flex flex-col">
+              <div className="text-center mb-4 sm:mb-6">
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
                   Ações Rápidas
                 </h3>
-                <p className="text-gray-600 max-w-2xl mx-auto">
+                <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto">
                   Acesse rapidamente as principais funcionalidades do sistema e gerencie seus investimentos
                 </p>
               </div>
               
               <div className="flex-1 flex items-center justify-center">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto w-full">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 max-w-4xl mx-auto w-full">
                   <Link
                     href="/clientes"
-                    className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 hover:border-blue-300 p-6 text-center hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-500/20 transition-all duration-500 hover:-translate-y-1"
+                    className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 hover:border-blue-300 p-4 sm:p-6 text-center hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-500/20 transition-all duration-500 hover:-translate-y-1"
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-blue-800/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <div className="relative">
-                      <div className="p-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl shadow-lg mx-auto w-fit mb-4 group-hover:shadow-2xl group-hover:scale-110 transition-all duration-300">
-                        <Users className="h-8 w-8 text-white" />
+                      <div className="p-2.5 sm:p-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl shadow-lg mx-auto w-fit mb-3 sm:mb-4 group-hover:shadow-2xl group-hover:scale-110 transition-all duration-300">
+                        <Users className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
                       </div>
-                      <h4 className="text-xl font-bold text-blue-900 group-hover:text-blue-800 mb-2 transition-colors">
+                      <h4 className="text-lg sm:text-xl font-bold text-blue-900 group-hover:text-blue-800 mb-2 transition-colors">
                         Gerenciar Clientes
                       </h4>
-                      <p className="text-blue-700 group-hover:text-blue-600 transition-colors leading-relaxed text-sm">
+                      <p className="text-sm sm:text-sm text-blue-700 group-hover:text-blue-600 transition-colors leading-relaxed">
                         Visualizar, editar e gerenciar informações detalhadas dos seus clientes
                       </p>
                       <div className="mt-3 inline-flex items-center text-sm font-medium text-blue-600 group-hover:text-blue-700">
@@ -222,17 +222,17 @@ export default function Home() {
 
                   <Link
                     href="/ativos"
-                    className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-50 to-emerald-100 border border-emerald-200 hover:border-emerald-300 p-6 text-center hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-emerald-500/20 transition-all duration-500 hover:-translate-y-1"
+                    className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-50 to-emerald-100 border border-emerald-200 hover:border-emerald-300 p-4 sm:p-6 text-center hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-emerald-500/20 transition-all duration-500 hover:-translate-y-1"
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-emerald-600/5 to-emerald-800/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <div className="relative">
-                      <div className="p-3 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl shadow-lg mx-auto w-fit mb-4 group-hover:shadow-2xl group-hover:scale-110 transition-all duration-300">
-                        <TrendingUp className="h-8 w-8 text-white" />
+                      <div className="p-2.5 sm:p-3 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl shadow-lg mx-auto w-fit mb-3 sm:mb-4 group-hover:shadow-2xl group-hover:scale-110 transition-all duration-300">
+                        <TrendingUp className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
                       </div>
-                      <h4 className="text-xl font-bold text-emerald-900 group-hover:text-emerald-800 mb-2 transition-colors">
+                      <h4 className="text-lg sm:text-xl font-bold text-emerald-900 group-hover:text-emerald-800 mb-2 transition-colors">
                         Visualizar Ativos
                       </h4>
-                      <p className="text-emerald-700 group-hover:text-emerald-600 transition-colors leading-relaxed text-sm">
+                      <p className="text-sm sm:text-sm text-emerald-700 group-hover:text-emerald-600 transition-colors leading-relaxed">
                         Acompanhar performance e gerenciar o portfólio de investimentos
                       </p>
                       <div className="mt-3 inline-flex items-center text-sm font-medium text-emerald-600 group-hover:text-emerald-700">
