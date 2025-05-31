@@ -99,6 +99,36 @@ docker-compose exec backend npm run db:seed
 
 > **🎉 Pronto!** Sua aplicação está rodando em http://localhost:3000
 
+## 🗄️ Gerenciamento do Banco de Dados
+
+### **Comandos de Database** 💾
+
+```bash
+# Reset completo do banco (apaga todos os dados e reaplica migrações)
+npm run db:reset
+
+# Popular com dados de exemplo
+npm run db:seed
+
+# Reset + seed em um comando
+npm run db:reset-and-seed
+
+# Comandos diretos no container (alternativa)
+docker-compose exec backend npm run db:reset
+docker-compose exec backend npm run db:seed
+```
+
+### **Dados de Demonstração Inclusos** 📊
+
+Após executar o seed, você terá:
+- 👥 **8 clientes** de exemplo (6 ativos e 2 inativos)
+- 📈 **15 ativos** diversos (ações, FIIs, fundos, renda fixa, tesouro, debêntures)  
+- 🔗 **22 alocações** pré-configuradas
+- 💰 **Patrimônio total**: R$ 600.000,00
+- 📊 **Estatísticas** calculadas automaticamente
+
+> **💡 Dica:** Use `npm run db:reset-and-seed` quando quiser restaurar os dados para o estado inicial.
+
 ### **Desenvolvimento Local (Opcional)** 🔧
 
 Para desenvolvimento com hot-reload:
