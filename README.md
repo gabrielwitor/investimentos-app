@@ -9,10 +9,6 @@
 [![Prisma](https://img.shields.io/badge/Prisma-5.22-2D3748?logo=prisma&logoColor=white)](https://www.prisma.io/)
 [![TailwindCSS](https://img.shields.io/badge/Tailwind-4.0-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
-<div align="center">
-  <img src="https://via.placeholder.com/800x400/1e293b/ffffff?text=InvestApp+Pro+Dashboard" alt="InvestApp Pro Dashboard" style="border-radius: 8px; margin: 20px 0;">
-</div>
-
 ## 📋 Sobre o Projeto
 
 O **InvestApp Pro** é uma aplicação web de última geração desenvolvida especificamente para escritórios de investimentos que exigem uma solução robusta, escalável e visualmente atraente para gerenciar carteiras de clientes e acompanhar ativos financeiros.
