@@ -1,0 +1,746 @@
+{
+  "info": {
+    "name": "InvestApp Pro - API Collection",
+    "description": "Comprehensive API collection for testing all endpoints of the investment management application",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3001",
+      "type": "string",
+      "description": "Base URL for the API"
+    },
+    {
+      "key": "clienteId",
+      "value": "",
+      "type": "string",
+      "description": "Cliente ID for testing (will be set dynamically)"
+    },
+    {
+      "key": "ativoId",
+      "value": "",
+      "type": "string",
+      "description": "Ativo ID for testing (will be set dynamically)"
+    },
+    {
+      "key": "alocacaoId",
+      "value": "",
+      "type": "string",
+      "description": "Alocacao ID for testing (will be set dynamically)"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "description": "Health check and API information endpoints",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            },
+            "description": "Check API health status"
+          },
+          "response": []
+        },
+        {
+          "name": "API Information",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": ["{{baseUrl}}"],
+              "path": [""]
+            },
+            "description": "Get API information and available endpoints"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Clientes",
+      "description": "Client management endpoints",
+      "item": [
+        {
+          "name": "List Clientes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/clientes?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clientes"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Items per page"
+                }
+              ]
+            },
+            "description": "List all clients with pagination"
+          },
+          "response": []
+        },
+        {
+          "name": "List Clientes with Search",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/clientes?search=João&status=ATIVO",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clientes"],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "João",
+                  "description": "Search by name or email"
+                },
+                {
+                  "key": "status",
+                  "value": "ATIVO",
+                  "description": "Filter by status (ATIVO/INATIVO)"
+                }
+              ]
+            },
+            "description": "Search clients by name/email and filter by status"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Cliente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Teste da Silva\",\n  \"email\": \"teste@exemplo.com\",\n  \"status\": \"ATIVO\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/clientes",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clientes"]
+            },
+            "description": "Create a new client"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Cliente by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/clientes/{{clienteId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clientes", "{{clienteId}}"]
+            },
+            "description": "Get client details by ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Cliente",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Teste da Silva Atualizado\",\n  \"email\": \"teste.atualizado@exemplo.com\",\n  \"status\": \"INATIVO\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/clientes/{{clienteId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clientes", "{{clienteId}}"]
+            },
+            "description": "Update client information"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Cliente",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/clientes/{{clienteId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clientes", "{{clienteId}}"]
+            },
+            "description": "Delete a client"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Ativos",
+      "description": "Asset management endpoints",
+      "item": [
+        {
+          "name": "List Ativos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/ativos?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ativos"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Items per page"
+                }
+              ]
+            },
+            "description": "List all assets with pagination"
+          },
+          "response": []
+        },
+        {
+          "name": "List Ativos with Search",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/ativos?search=Vale",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ativos"],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "Vale",
+                  "description": "Search by asset name"
+                }
+              ]
+            },
+            "description": "Search assets by name"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Ativo by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/ativos/{{ativoId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ativos", "{{ativoId}}"]
+            },
+            "description": "Get asset details by ID including allocations"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Alocações",
+      "description": "Allocation management endpoints",
+      "item": [
+        {
+          "name": "List All Alocações",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/alocacoes?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "alocacoes"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Items per page"
+                }
+              ]
+            },
+            "description": "List all allocations with pagination"
+          },
+          "response": []
+        },
+        {
+          "name": "List Alocações by Cliente",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/alocacoes?clienteId={{clienteId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "alocacoes"],
+              "query": [
+                {
+                  "key": "clienteId",
+                  "value": "{{clienteId}}",
+                  "description": "Filter by client ID"
+                }
+              ]
+            },
+            "description": "List allocations filtered by client"
+          },
+          "response": []
+        },
+        {
+          "name": "List Alocações by Ativo",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/alocacoes?ativoId={{ativoId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "alocacoes"],
+              "query": [
+                {
+                  "key": "ativoId",
+                  "value": "{{ativoId}}",
+                  "description": "Filter by asset ID"
+                }
+              ]
+            },
+            "description": "List allocations filtered by asset"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Alocação",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": \"{{clienteId}}\",\n  \"ativoId\": \"{{ativoId}}\",\n  \"valor\": 10000.50\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/alocacoes",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "alocacoes"]
+            },
+            "description": "Create a new allocation"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Alocação by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/alocacoes/{{alocacaoId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "alocacoes", "{{alocacaoId}}"]
+            },
+            "description": "Get allocation details by ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Alocação",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"valor\": 15000.75\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/alocacoes/{{alocacaoId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "alocacoes", "{{alocacaoId}}"]
+            },
+            "description": "Update allocation value"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Alocação",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/alocacoes/{{alocacaoId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "alocacoes", "{{alocacaoId}}"]
+            },
+            "description": "Delete an allocation"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Cliente Alocações",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/clientes/{{clienteId}}/alocacoes",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clientes", "{{clienteId}}", "alocacoes"]
+            },
+            "description": "Get all allocations for a specific client with summary"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "description": "Dashboard statistics endpoints",
+      "item": [
+        {
+          "name": "Get Dashboard Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/dashboard/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dashboard", "stats"]
+            },
+            "description": "Get general system statistics for dashboard"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Testing Scenarios",
+      "description": "Complete testing scenarios with multiple requests",
+      "item": [
+        {
+          "name": "Complete CRUD Test - Cliente",
+          "description": "Test complete CRUD operations for a client",
+          "item": [
+            {
+              "name": "1. Create Test Cliente",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nome\": \"Cliente Teste CRUD\",\n  \"email\": \"teste.crud@exemplo.com\",\n  \"status\": \"ATIVO\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/clientes",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "clientes"]
+                },
+                "description": "Step 1: Create a test client"
+              },
+              "response": []
+            },
+            {
+              "name": "2. Read Test Cliente",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/clientes/{{clienteId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "clientes", "{{clienteId}}"]
+                },
+                "description": "Step 2: Read the created client"
+              },
+              "response": []
+            },
+            {
+              "name": "3. Update Test Cliente",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nome\": \"Cliente Teste CRUD - Atualizado\",\n  \"email\": \"teste.crud.atualizado@exemplo.com\",\n  \"status\": \"INATIVO\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/clientes/{{clienteId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "clientes", "{{clienteId}}"]
+                },
+                "description": "Step 3: Update the client"
+              },
+              "response": []
+            },
+            {
+              "name": "4. Delete Test Cliente",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/clientes/{{clienteId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "clientes", "{{clienteId}}"]
+                },
+                "description": "Step 4: Delete the client"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Complete CRUD Test - Alocação",
+          "description": "Test complete CRUD operations for an allocation",
+          "item": [
+            {
+              "name": "1. Get Available Cliente and Ativo",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/clientes?limit=1",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "clientes"],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "1"
+                    }
+                  ]
+                },
+                "description": "Step 1: Get a client for testing"
+              },
+              "response": []
+            },
+            {
+              "name": "2. Get Available Ativo",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/ativos?limit=1",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "ativos"],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "1"
+                    }
+                  ]
+                },
+                "description": "Step 2: Get an asset for testing"
+              },
+              "response": []
+            },
+            {
+              "name": "3. Create Test Alocação",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clienteId\": \"{{clienteId}}\",\n  \"ativoId\": \"{{ativoId}}\",\n  \"valor\": 5000.00\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/alocacoes",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "alocacoes"]
+                },
+                "description": "Step 3: Create a test allocation"
+              },
+              "response": []
+            },
+            {
+              "name": "4. Read Test Alocação",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/alocacoes/{{alocacaoId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "alocacoes", "{{alocacaoId}}"]
+                },
+                "description": "Step 4: Read the created allocation"
+              },
+              "response": []
+            },
+            {
+              "name": "5. Update Test Alocação",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"valor\": 7500.00\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/alocacoes/{{alocacaoId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "alocacoes", "{{alocacaoId}}"]
+                },
+                "description": "Step 5: Update the allocation value"
+              },
+              "response": []
+            },
+            {
+              "name": "6. Delete Test Alocação",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/alocacoes/{{alocacaoId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "alocacoes", "{{alocacaoId}}"]
+                },
+                "description": "Step 6: Delete the allocation"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Error Testing",
+          "description": "Test error scenarios and edge cases",
+          "item": [
+            {
+              "name": "Get Non-existent Cliente",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/clientes/00000000-0000-0000-0000-000000000000",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "clientes", "00000000-0000-0000-0000-000000000000"]
+                },
+                "description": "Test 404 error for non-existent client"
+              },
+              "response": []
+            },
+            {
+              "name": "Create Cliente with Invalid Email",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nome\": \"Teste Email Inválido\",\n  \"email\": \"email-invalido\",\n  \"status\": \"ATIVO\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/clientes",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "clientes"]
+                },
+                "description": "Test validation error for invalid email"
+              },
+              "response": []
+            },
+            {
+              "name": "Create Cliente with Missing Data",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nome\": \"Teste Dados Faltantes\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/clientes",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "clientes"]
+                },
+                "description": "Test validation error for missing required fields"
+              },
+              "response": []
+            },
+            {
+              "name": "Create Alocação with Invalid IDs",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clienteId\": \"00000000-0000-0000-0000-000000000000\",\n  \"ativoId\": \"00000000-0000-0000-0000-000000000000\",\n  \"valor\": 1000.00\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/alocacoes",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "alocacoes"]
+                },
+                "description": "Test error for allocation with non-existent client/asset"
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

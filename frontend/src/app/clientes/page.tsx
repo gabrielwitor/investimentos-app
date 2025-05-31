@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { AppLayout } from '@/components/layout'
 import { useClientes, useDeleteCliente } from '@/hooks/use-clientes'
-import { Users, Plus, Search, Edit, Trash2, Eye, Mail, User, UserPlus, Sparkles, CheckCircle, XCircle, Activity } from 'lucide-react'
+import { Users, Search, Edit, Trash2, Eye, Mail, User, UserPlus, Sparkles, CheckCircle, XCircle, Activity } from 'lucide-react'
 import Link from 'next/link'
 import { formatDate } from '@/lib/utils'
 

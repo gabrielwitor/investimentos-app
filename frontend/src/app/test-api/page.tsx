@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import api from '@/lib/api'
 
 export default function TestApiPage() {
-  const [data, setData] = useState<any>(null)
+  const [data, setData] = useState<unknown>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
 
@@ -15,9 +15,10 @@ export default function TestApiPage() {
         const response = await api.get('/api/ativos')
         console.log('API response:', response.data)
         setData(response.data)
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error('API error:', err)
-        setError(err.message || 'Unknown error')
+        const errorMessage = err instanceof Error ? err.message : 'Unknown error'
+        setError(errorMessage)
       } finally {
         setLoading(false)
       }

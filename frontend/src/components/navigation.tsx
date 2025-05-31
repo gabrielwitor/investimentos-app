@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Users, TrendingUp, Home, Sparkles } from 'lucide-react'
+import { Users, TrendingUp, Home } from 'lucide-react'
 
 export function Navigation() {
   return (

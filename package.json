@@ -1,0 +1,19 @@
+{
+  "name": "investapp-pro-tests",
+  "version": "1.0.0",
+  "description": "Integration tests for InvestApp Pro",
+  "main": "test-integration.js",
+  "scripts": {
+    "test": "node test-integration.js",
+    "test:integration": "node test-integration.js"
+  },
+  "keywords": [
+    "integration",
+    "test",
+    "api",
+    "investment",
+    "management"
+  ],
+  "author": "InvestApp Pro Team",
+  "license": "MIT"
+}

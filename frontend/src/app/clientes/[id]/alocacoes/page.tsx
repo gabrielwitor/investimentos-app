@@ -3,9 +3,8 @@
 import { useParams } from 'next/navigation';
 import { AppLayout } from '@/components/layout';
 import { useAlocacoesPorCliente } from '@/hooks/use-alocacoes';
-import { useClientes } from '@/hooks/use-clientes';
 import { useAtivos } from '@/hooks/use-ativos';
-import { ArrowLeft, Plus, Wallet, TrendingUp, DollarSign, Edit3, Trash2 } from 'lucide-react';
+import { ArrowLeft, Plus, Wallet, TrendingUp, DollarSign, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useCreateAlocacao, useDeleteAlocacao } from '@/hooks/use-alocacoes';
@@ -42,8 +41,9 @@ export default function ClienteAlocacoesPage() {
       
       setFormData({ ativoId: '', valor: '' });
       setShowForm(false);
-    } catch (error: any) {
-      alert(error.response?.data?.message || 'Erro ao criar alocação');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Erro ao criar alocação';
+      alert(errorMessage);
     }
   };
 
@@ -51,8 +51,9 @@ export default function ClienteAlocacoesPage() {
     if (confirm('Tem certeza que deseja remover esta alocação?')) {
       try {
         await deleteAlocacao.mutateAsync(alocacaoId);
-      } catch (error: any) {
-        alert(error.response?.data?.message || 'Erro ao remover alocação');
+      } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Erro ao remover alocação';
+        alert(errorMessage);
       }
     }
   };
